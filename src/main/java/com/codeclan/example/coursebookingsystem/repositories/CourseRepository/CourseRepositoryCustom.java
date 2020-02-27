@@ -6,4 +6,5 @@ import java.util.List;
 
 public interface CourseRepositoryCustom {
     List<Course> getAllCoursesForGivenRating(int rating);
+    List<Course> getAllCoursesForGivenCustomer(String customerName);
 }

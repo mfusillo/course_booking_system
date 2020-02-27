@@ -6,5 +6,5 @@ import java.util.List;
 
 public interface CustomerRepositoryCustom {
 
-    List<Customer> getAllCustomersForGivenCourse(Long courseId);
+    List<Customer> getAllCustomersForGivenCourse(String courseName);
 }
