@@ -25,7 +25,7 @@ public class CustomerRepositoryImpl implements CustomerRepositoryCustom {
             Criteria cr = session.createCriteria(Customer.class);
             cr.createAlias("bookings", "booking");
             cr.createAlias("booking.course", "course");
-            cr.add(Restrictions.eq("course.name", courseName));
+            cr.add(Restrictions.eq("course.name", courseName).ignoreCase());
             result = cr.list();
         }
         catch(HibernateException ex){
@@ -34,5 +34,47 @@ public class CustomerRepositoryImpl implements CustomerRepositoryCustom {
 
         return result;
     }
+
+    @Transactional
+    public List<Customer> getAllCustomersForGivenTownAndGivenCourse(String town, String courseName){
+        List<Customer> result = null;
+        Session session = entityManager.unwrap(Session.class);
+        try {
+            Criteria cr = session.createCriteria(Customer.class);
+            cr.add(Restrictions.eq("town", town).ignoreCase());
+            cr.createAlias("bookings", "booking");
+            cr.createAlias("booking.course", "course");
+            cr.add(Restrictions.eq("course.name", courseName).ignoreCase());
+            result = cr.list();
+        }
+        catch(HibernateException ex){
+            ex.printStackTrace();
+        }
+
+        return result;
+    }
+
+    @Transactional
+    public List<Customer> getAllCustomersOverGivenAgeInGivenTownForGivenCourse(int age, String town, String courseName){
+        List<Customer> result = null;
+        Session session = entityManager.unwrap(Session.class);
+
+        try {
+            Criteria cr = session.createCriteria(Customer.class);
+            cr.add(Restrictions.ge("age", age));
+            cr.add(Restrictions.eq("town", town).ignoreCase());
+            cr.createAlias("bookings", "booking");
+            cr.createAlias("booking.course", "course");
+            cr.add(Restrictions.eq("course.name", courseName).ignoreCase());
+            result = cr.list();
+        }
+
+        catch(HibernateException ex){
+        ex.printStackTrace();
+        }
+
+        return result;
+    }
+
 
 }

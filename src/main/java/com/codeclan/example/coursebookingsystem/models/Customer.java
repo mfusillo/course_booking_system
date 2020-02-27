@@ -1,6 +1,6 @@
 package com.codeclan.example.coursebookingsystem.models;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import org.hibernate.persister.collection.CollectionPersister;
 
 import javax.persistence.*;
 import java.lang.reflect.Array;
